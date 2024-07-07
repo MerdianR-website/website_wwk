@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verkehrssituation WWK Arena</title>
+    <style>
+        body {
+            font-family: Calibri, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Mindesthöhe des Viewports, um Footer unten zu fixieren */
+        }
+
+        /* Stil für den oberen grünen Balken */
+        #header {
+            background-color: #105109;
+            color: white; /* Weiße Schriftfarbe für den Text im Header */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #header img {
+            height: 50px;
+            width: auto;
+        }
+
+        /* Hauptinhalt der Webseite */
+        .content {
+            flex: 1; /* Füllt den verfügbaren Raum zwischen Header und Footer */
+            padding: 20px; /* Beispiel für Innenabstand, je nach Bedarf anpassen */
+        }
+
+        h1, h2, h3 {
+            font-family: "Thunderbolt 76", sans-serif;
+            font-weight: bold;
+        }
+
+        /* Stil für den unteren grünen Balken */
+        #footer {
+            background-color: #105109;
+            color: white; /* Weiße Schriftfarbe für den Text im Footer */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto; /* Fixiert den Footer unten */
+        }
+
+        #footer img {
+            height: 50px;
+            width: auto;
+        }
+
+        /* Versteckt die Checkbox-Seite standardmäßig */
+        #formPage {
+            display: none;
+        }
+
+        /* Flexbox-Container für die Checkboxen */
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Stil für die Checkboxen */
+        fieldset {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            width: 45%; /* Anpassen der Breite der Checkbox-Felder */
+        }
+
+        legend {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>Verkehrssituation an der WWK Arena</h1>
+        <img src="fca_logo.png" alt="FCA Logo">
+        <!-- Weitere Header-Inhalte -->
+    </div>
+
+    <div class="content">
+        <!-- Hauptinhalt der Webseite -->
+        <p>Hallo Fußballfans,<br>
+        <p></p>
+            diese Website informiert Sie über die Parkplatzauslastung und bietet alternative Parkplatzvorschläge, falls die ausgeschriebenen WWK Parkplätze voll sind.
+        </p>
+        <iframe id="mapFrame" src="https://qgiscloud.com/MerdianR/parken/" width="100%" height="600px" frameborder="0"></iframe>
+
+        <img src="Legende_website.png" width="600" height="80">
+
+        <div id="parkingStatus"></div>
+        
+        <h3>Parkplatz Auslastung</h3>
+        <div id="parkingStatusDisplay">
+            <p id="internalParkingStatus"></p>
+            <p id="externalParkingStatus"></p>
+        </div>
+
+        <h3>Hinweis</h3>
+        <div id="parkingHint"></div>
+
+        <ul>
+            <li><a href="https://www.avv-augsburg.de/">AVV Augsburg</a></li>
+            <li><a href="https://www.bahn.de/">Deutsche Bahn</a></li>
+        </ul>
+
+        <p><button onclick="showFormPage()">Nur für Mitarbeiter</button></p>
+        <img src="tarifzonenplan.png">
+    </div>
+
+    <div id="formPage">
+        <h1>Checkboxen</h1>
+        <form id="parkingForm">
+            <div class="flex-container">
+                <fieldset>
+                    <legend>Interne Parkmöglichkeiten</legend>
+                    <fieldset>
+                        <legend>Tagesparkplatz (P1)</legend>
+                        <label>
+                            <input type="checkbox" name="Tagesparkplatz (P1)" value="Voll"> Voll
+                        </label><br>
+                        <label>
+                            <input type="checkbox" name="Tagesparkplatz (P1)" value="Fast voll"> Fast voll
+                        </label><br>
+                        <label>
+                            <input type="checkbox" name="Tagesparkplatz (P1)" value="Verfügbar"> Verfügbar
+                        </label><br>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Dauerparkplatz (P2)</legend>
+                        <label>
+                            <input type="checkbox" name="Dauerparkplatz (P2)" value="Voll"> Voll
+                        </label><br>
+                        <label>
+                            <input type="checkbox" name="Dauerparkplatz (P2)" value="Fast voll"> Fast voll
+                        </label><br>
+                        <label>
+                            <input type="checkbox" name="Dauerparkplatz (P2)" value="Verfügbar"> Verfügbar
+                        </label><br>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>VIP Parkplatz (P3)</legend>
+                        <label>
+                            <input type="checkbox" name="VIP Parkplatz (P3)" value="Voll"> Voll
+                        </label><br>
+                        <label>
+                            <input type="checkbox" name="VIP Parkplatz (P3)" value="Fast voll"> Fast voll
+                        </label><br>
+                        <label>
+                            <input type="checkbox" name="VIP Parkplatz (P3)" value="Verfügbar"> Verfügbar
+                        </label><br>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Tagesparkplatz (P4)</legend>
+                        <label>
+                            <input type="checkbox" name="Tagesparkplatz (P4)" value="Voll"> Voll
+                        </label><br>
+                        <label>
+                            <input type="checkbox" name="Tagesparkplatz (P4)" value="Fast voll"> Fast voll
+                        </label><br>
+                        <label>
+                            <input type="checkbox" name="Tagesparkplatz (P4)" value="Verfügbar"> Verfügbar
+                        </label><br>
+                    </fieldset>
+                </fieldset>
+                <fieldset>
+                    <legend>Externe Parkmöglichkeiten</legend>
+                    <fieldset>
+                        <legend>XXXLutz Parkplatz</legend>
+                        <label>
+                            <input type="checkbox" name="XXXLutz Parkplatz" value="Voll"> Voll
+                        </label><br>
+                        <label>
+                            <input type="checkbox" name="XXXLutz Parkplatz" value="Fast voll"> Fast voll
+                        </label><br>
+                        <label>
+                            <input type="checkbox" name="XXXLutz Parkplatz" value="Verfügbar"> Verfügbar
+                        </label><br>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Messeparkplatz (1)</legend>
+                        <label>
+                            <input type="checkbox" name="Messeparkplatz (1)" value="Voll"> Voll
+                        </label><br>
+                        <label>
+                            <input type="checkbox" name="Messeparkplatz (1)" value="Fast voll"> Fast voll
+                        </label><br>
+                        <label>
+                            <input type="checkbox" name="Messeparkplatz (1)" value="Verfügbar"> Verfügbar
+                        </label><br>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Messeparkplatz (2)</legend>
+                        <label>
+                            <input type="checkbox" name="Messeparkplatz (2)" value="Voll"> Voll
+                        </label><br>
+                        <label>
+                            <input type="checkbox" name="Messeparkplatz (2)" value="Fast voll"> Fast voll
+                        </label><br>
+                        <label>
+                            <input type="checkbox" name="Messeparkplatz (2)" value="Verfügbar"> Verfügbar
+                        </label><br>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>WTC Parkplatz</legend>
+                        <label>
+                            <input type="checkbox" name="WTC Parkplatz" value="Voll"> Voll
+                        </label><br>
+                        <label>
+                            <input type="checkbox" name="WTC Parkplatz" value="Fast voll"> Fast voll
+                        </label><br>
+                        <label>
+                            <input type="checkbox" name="WTC Parkplatz" value="Verfügbar"> Verfügbar
+                        </label><br>
+                    </fieldset>
+                </fieldset>
+            </div>
+        </form>
+
+        <p><button onclick="showMainPage()">Zurück zur Hauptseite</button></p>
+    </div>
+
+    <div id="footer">
+        <!-- Footer-Inhalte -->
+        <img src="fca_logo.png" alt="FCA Logo">
+        <p>2024 FC Augsburg</p>
+    </div>
+
+    <script>
+        function showFormPage() {
+            document.getElementById('formPage').style.display = 'block';
+            document.querySelector('.content').style.display = 'none';
+        }
+
+        function showMainPage() {
+            document.getElementById('formPage').style.display = 'none';
+            document.querySelector('.content').style.display = 'block';
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+    const checkboxes = document.querySelectorAll('#parkingForm input[type="checkbox"]');
+    const mapFrame = document.getElementById('mapFrame');
+    let mapDocument = null;
+
+    mapFrame.addEventListener('load', () => {
+        mapDocument = mapFrame.contentDocument || mapFrame.contentWindow.document;
+        initializeMapLayers();
+    });
+
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', () => {
+            updateParkingStatus(); // Aktualisiere die Anzeige der Parkplatz-Auslastung
+            updateParkingHint(); // Aktualisiere den Hinweis basierend auf der Anzahl der angeklickten Checkboxen
+            updateMapLayers(); // Aktualisiere die QGIS Webmap-Layer basierend auf den Checkbox-Status
+        });
+    });
+    function initializeMapLayers() {
+        if (mapDocument) {
+            // Hier kannst du die Initialisierung der QGIS Webmap-Layer vornehmen, falls nötig
+            // Zum Beispiel:
+            // mapDocument.getElementById('layer1').style.display = 'block'; // Zeigt einen Layer an
+            // mapDocument.getElementById('layer2').style.display = 'none'; // Versteckt einen Layer
+        }
+    }
+
+    function updateMapLayers() {
+    if (mapDocument) {
+        const internalChecked = [];
+        const externalChecked = [];
+
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                if (checkbox.name.includes('Tagesparkplatz') || checkbox.name.includes('Dauerparkplatz') || checkbox.name.includes('VIP Parkplatz')) {
+                    internalChecked.push(checkbox.value.toLowerCase());
+                } else {
+                    externalChecked.push(checkbox.value.toLowerCase());
+                }
+            }
+        });
+
+        // Logik zur Entscheidung, welcher Layer angezeigt werden soll
+        console.log("Internal Checked:", internalChecked);
+        console.log("External Checked:", externalChecked);
+
+        // Hier müssen die IDs der QGIS-Webmap-Elemente korrekt abgestimmt sein
+        if (internalChecked.length === 4 && internalChecked.every(value => value === 'voll')) {
+            mapDocument.getElementById('parkplatz_voll').style.display = 'block';
+            mapDocument.getElementById('parkplatz_fast_voll').style.display = 'none';
+            mapDocument.getElementById('parkplatz_fast_leer').style.display = 'none';
+        } else if (internalChecked.length === 4 && internalChecked.every(value => value === 'verfügbar')) {
+            mapDocument.getElementById('parkplatz_leer').style.display = 'block';
+            mapDocument.getElementById('parkplatz_fast_voll').style.display = 'none';
+            mapDocument.getElementById('parkplatz_fast_leer').style.display = 'none';
+        } else if (
+            internalChecked.includes('voll') &&
+            internalChecked.includes('fast voll') &&
+            externalChecked.every(value => value === 'verfügbar')
+        ) {
+            mapDocument.getElementById('parkplatz_fast_voll').style.display = 'block';
+            mapDocument.getElementById('parkplatz_leer').style.display = 'none';
+            mapDocument.getElementById('parkplatz_voll').style.display = 'none';
+        } else if (
+            internalChecked.includes('fast voll') &&
+            internalChecked.includes('verfügbar') &&
+            externalChecked.includes('fast voll') &&
+            externalChecked.includes('verfügbar')
+        ) {
+            mapDocument.getElementById('parkplatz_fast_leer').style.display = 'block';
+            mapDocument.getElementById('parkplatz_leer').style.display = 'none';
+            mapDocument.getElementById('parkplatz_voll').style.display = 'none';
+        } else {
+            mapDocument.getElementById('parkplatz_voll').style.display = 'none';
+            mapDocument.getElementById('parkplatz_leer').style.display = 'none';
+            mapDocument.getElementById('parkplatz_fast_voll').style.display = 'none';
+            mapDocument.getElementById('parkplatz_fast_leer').style.display = 'none';
+        }
+    }
+}
+    
+    function countCheckedCheckboxes() {
+        let numChecked = 0;
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                numChecked++;
+            }
+        });
+        return numChecked;
+    }
+
+    function updateParkingHint() {
+    let numFull = 0;
+
+    checkboxes.forEach((checkbox) => {
+        if (checkbox.checked && checkbox.value.toLowerCase() === 'voll') {
+            numFull++;
+        }
+    });
+
+    if (numFull >= 4) {
+        document.getElementById('parkingHint').innerHTML = 'Kein Parkplatz kann garantiert werden. Ziehen Sie in Betracht mit dem ÖPNV anzureisen. Ihr Stadionticket beinhaltet ein kostenloses Ticket für Zone 20. Näheres entnehmen Sie der Tarifzonenkarte und den bereitgestellten Links.';
+    } else {
+        document.getElementById('parkingHint').innerHTML = 'Es sind noch ausreichend Parkplätze verfügbar. Kein Parkplatz kann garantiert werden. Ziehen Sie bitte dennoch in Betracht mit dem ÖPNV anzureisen. Ihr Stadionticket beinhaltet ein kostenloses Ticket für Zone 20. Näheres entnehmen Sie der Tarifzonenkarte und den bereitgestellten Links.';
+    }
+}
+
+    function updateParkingStatus() {
+        let internalStatus = "<strong>Interne Parkplätze:</strong><br>";
+        let externalStatus = "<strong>Externe Parkplätze:</strong><br>";
+
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                const statusText = `${checkbox.name} ist ${checkbox.value.toLowerCase()}`;
+                if (checkbox.name.includes('Tagesparkplatz') || checkbox.name.includes('Dauerparkplatz') || checkbox.name.includes('VIP Parkplatz')) {
+                    internalStatus += `${statusText}<br>`;
+                } else {
+                    externalStatus += `${statusText}<br>`;
+                }
+            }
+        });
+
+        document.getElementById('internalParkingStatus').innerHTML = internalStatus.trim();
+        document.getElementById('externalParkingStatus').innerHTML = externalStatus.trim();
+    }
+
+    // Initiales Update beim Laden der Seite
+    updateParkingStatus();
+    updateParkingHint(); // Aktualisiere den Hinweis beim Laden der Seite basierend auf den initialen Checkbox-Status
+    updateMapLayers(); // Aktualisiere die QGIS Webmap-Layer beim Laden der Seite basierend auf den initialen Checkbox-Status
+});
+
+   
+    </script>
+
+</body>
+</html>
